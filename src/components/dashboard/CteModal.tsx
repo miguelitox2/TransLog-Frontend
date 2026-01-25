@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 interface CteModalProps {
   cte: CteData | null;
   onClose: () => void;
-  onUpdate: () => void; // Adicionado para atualizar a lista após salvar
+  onUpdate: () => void;
 }
 
 export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
@@ -36,53 +36,42 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
     }
   }, [cte]);
 
+  // Se não houver CTE, o componente não renderiza nada,
+  // mas as referências acima precisam de proteção opcional (?.)
   if (!cte) return null;
 
   const handleFinalize = async () => {
     try {
-      // 1. Fazemos o PUT enviando apenas o status alterado
       const response = await api.put(`/ctes/${cte.id}`, {
         ...editData,
         status: "Finalizado",
       });
 
       if (response.status === 200) {
-        // 2. Atualiza o estado local para refletir no Modal aberto
         setEditData((prev) => ({ ...prev, status: "Finalizado" }));
-
-        // 3. Atualiza a lista ao fundo
         if (onUpdate) await onUpdate();
-
         toast.success("Chamado finalizado com sucesso!");
       }
     } catch (error) {
-      console.error("Erro ao finalizar:", error);
       toast.error("Não foi possível finalizar o chamado.");
     }
   };
 
   const handleSave = async () => {
     try {
-      // Montamos o que vai para o banco com base no que está na TELA (editData)
       const payload = {
-        ...editData, // Pega tudo que está no estado de edição, incluindo a nova causa
+        ...editData,
         ro: editData.ro ? Number(editData.ro) : undefined,
         value: editData.value ? Number(editData.value) : 0,
-        cause: editData.cause, // <--- GARANTA QUE ISSO ESTÁ AQUI
+        cause: editData.cause,
       };
 
       const response = await api.put(`/ctes/${cte.id}`, payload);
 
       if (response.status === 200) {
-        // 1. Atualizamos o modal com os dados que acabamos de salvar
         setEditData(payload);
-
-        // 2. Desativamos o modo edição
         setIsEditing(false);
-
-        // 3. Atualizamos a lista principal (Financial/Ocorrências) ao fundo
         if (onUpdate) await onUpdate();
-
         toast.success("Alterações aplicadas com sucesso!");
       }
     } catch (error: any) {
@@ -93,7 +82,6 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="bg-slate-950 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-        {/* Header do Modal */}
         <div className="flex items-center justify-between p-6 border-b border-slate-800 bg-slate-900/50">
           <div className="flex items-center gap-3">
             <div className="bg-blue-600/20 p-2 rounded-lg text-blue-400">
@@ -101,7 +89,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
             </div>
             <div>
               <h2 className="text-xl font-bold text-white uppercase">
-                {cte.numberCte}
+                {cte?.numberCte}
               </h2>
               <p className="text-xs text-slate-400">
                 {isEditing ? "Editando Informações" : "Detalhes da Ocorrência"}
@@ -116,8 +104,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
           </button>
         </div>
 
-        {/* Conteúdo do Modal */}
-        <div className="p-8 grid grid-cols-2 md:grid-cols-2 gap-12">
+        <div className="p-8 grid grid-cols-2 gap-12">
           <section className="space-y-6">
             <div className="flex items-start gap-3">
               <Calendar className="text-slate-500 mt-1" size={18} />
@@ -126,8 +113,12 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   Abertura
                 </p>
                 <p className="text-slate-200">
-                  {new Date(cte.createdAt).toLocaleDateString("pt-BR")}{" "}
-                  {new Date(cte.createdAt).toLocaleTimeString("pt-BR")}
+                  {cte?.createdAt
+                    ? new Date(cte.createdAt).toLocaleDateString("pt-BR")
+                    : ""}{" "}
+                  {cte?.createdAt
+                    ? new Date(cte.createdAt).toLocaleTimeString("pt-BR")
+                    : ""}
                 </p>
               </div>
             </div>
@@ -139,7 +130,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   Remetente
                 </p>
                 <p className="text-slate-200 font-semibold uppercase">
-                  {cte.shipperName}
+                  {cte?.shipperName}
                 </p>
               </div>
             </div>
@@ -172,18 +163,14 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
 
           <section className="space-y-6">
             <div className="flex items-start gap-3">
-              {/* Ícone fixo de Tag */}
               <Tag className="text-slate-500 mt-1" size={18} />
-
               <div className="flex-1">
                 <p className="text-[10px] uppercase text-slate-500 font-bold tracking-widest">
                   Causa & R.O
                 </p>
-
                 <div className="flex flex-col gap-2 mt-1">
                   {isEditing ? (
                     <div className="flex gap-2">
-                      {/* Seletor de Causa */}
                       <select
                         value={editData.cause || ""}
                         onChange={(e) =>
@@ -196,8 +183,6 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                         <option value="Indenização">Indenização</option>
                         <option value="Extravio">Extravio</option>
                       </select>
-
-                      {/* Campo de Número do R.O */}
                       <input
                         type="text"
                         value={editData.ro || ""}
@@ -212,7 +197,6 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                       />
                     </div>
                   ) : (
-                    /* Visualização em modo de leitura */
                     <div className="flex items-center gap-2">
                       <span
                         className={`px-2 py-0.5 rounded-full text-xs font-bold ${badgeColorsByPriority[editData.cause || ""]}`}
@@ -227,6 +211,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                 </div>
               </div>
             </div>
+
             <div className="flex items-start gap-3">
               <House className="text-slate-500 mt-1" size={18} />
               <div>
@@ -234,7 +219,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   Destinatário
                 </p>
                 <p className="text-slate-200 font-semibold uppercase">
-                  {cte.clientName}
+                  {cte?.clientName}
                 </p>
               </div>
             </div>
@@ -272,7 +257,6 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
           </section>
         </div>
 
-        {/* Rodapé - Observações */}
         <div className="p-4 w-full bg-slate-900/50 border-t border-slate-800 ">
           <section className="space-y-4">
             <div className="w-full">
@@ -282,7 +266,6 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   Observações
                 </p>
               </div>
-
               {isEditing ? (
                 <textarea
                   value={editData.description || ""}
@@ -325,14 +308,12 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   <Edit3 size={16} /> Editar
                 </button>
               )}
-
-              {cte.status === "Pendente" && !isEditing && (
+              {cte?.status === "Pendente" && !isEditing && (
                 <button
                   onClick={handleFinalize}
                   className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-bold transition-colors shadow-lg shadow-green-900/20"
                 >
-                  <CheckCircle size={18} />
-                  Finalizar Chamado
+                  <CheckCircle size={18} /> Finalizar Chamado
                 </button>
               )}
             </div>
