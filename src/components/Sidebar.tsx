@@ -40,6 +40,8 @@ export function Sidebar() {
   const { user, signOut } = useAuth();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
+  const userAvatar = `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`;
+
   const handleLogout = () => {
     setIsLogoutModalOpen(true);
   };
@@ -131,11 +133,11 @@ export function Sidebar() {
 
             {/* Avatar e Infos do Usuário */}
             <div className="w-full mb-4">
-              <div className="flex items-center justify-center py-2 px-2 bg-slate-900 rounded-lg">
+              <div className="flex items-center justify-center py-3 px-2 bg-slate-900 rounded-lg">
                 <img
-                  src="./avatar.jpeg"
+                  src={userAvatar}
                   alt="avatar"
-                  className="size-10 rounded-full object-cover border border-slate-700"
+                  className="size-8 rounded-full object-cover border border-slate-700"
                 />
                 <div
                   className={`flex flex-col transition-all duration-300 ${isOpen ? "opacity-100 ml-2" : "opacity-0 w-0 overflow-hidden"}`}
@@ -143,7 +145,7 @@ export function Sidebar() {
                   <span className="text-xs font-bold text-start whitespace-nowrap">
                     {user?.name || "Usuário"}
                   </span>
-                  <span className="text-[10px] text-slate-400 text-start whitespace-nowrap uppercase tracking-wider">
+                  <span className="text-[10px] rounded-sm text-slate-400 text-start whitespace-nowrap uppercase tracking-wider">
                     {user?.role || "Operador"}
                   </span>
                 </div>
