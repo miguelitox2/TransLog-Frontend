@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Classe para scrollbars finas e escuras */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Largura da barra */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Fundo da trilha */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b; /* Cor da barra (slate-800) */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #334155; /* Cor ao passar o mouse (slate-700) */
+}
