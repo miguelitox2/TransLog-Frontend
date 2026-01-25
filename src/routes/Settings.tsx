@@ -54,7 +54,7 @@ function UserModal({ isOpen, onClose, branches, onSuccess }: ModalProps) {
           </h2>
           <button
             onClick={onClose}
-            className="text-slate-500 hover:text-slate-100 transition"
+            className="text-slate-500 hover:text-slate-100 transition cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -179,13 +179,13 @@ function UserModal({ isOpen, onClose, branches, onSuccess }: ModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-3 py-2 bg-slate-800/40 text-slate-300 rounded-xl hover:bg-slate-800 transition font-medium"
+              className="flex-1 px-3 cursor-pointer py-2 bg-slate-800/40 text-slate-300 rounded-xl hover:bg-slate-800 transition font-medium"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-1 bg-blue-600 text-white px-3 py-2 rounded-xl hover:bg-blue-700 flex items-center justify-center gap-2 font-bold transition shadow-lg shadow-blue-600/20"
+              className="flex-1 cursor-pointer bg-blue-600 text-white px-3 py-2 rounded-xl hover:bg-blue-700 flex items-center justify-center gap-2 font-bold transition shadow-lg shadow-blue-600/20"
             >
               <Save size={18} /> Salvar
             </button>
@@ -239,7 +239,7 @@ export function Settings() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600/60 hover:bg-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 transition-all font-bold shadow-lg shadow-blue-600/20"
+          className="bg-blue-600/60 hover:bg-blue-700 cursor-pointer text-white px-4 py-2 rounded-xl flex items-center gap-2 transition-all font-bold shadow-lg shadow-blue-600/20"
         >
           <UserPlus size={18} /> Novo Usuário
         </button>

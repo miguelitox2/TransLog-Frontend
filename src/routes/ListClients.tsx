@@ -87,7 +87,7 @@ export function ListClients() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl flex items-center gap-2 transition-all font-bold shadow-lg shadow-blue-600/20 w-full md:w-auto justify-center"
+          className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-5 py-2 rounded-xl flex items-center gap-2 transition-all font-bold shadow-lg shadow-blue-600/20 w-full md:w-auto justify-center"
         >
           <UserPlus size={18} /> Novo Cliente
         </button>
@@ -147,7 +147,7 @@ export function ListClients() {
                   <div className="flex gap-2 justify-center">
                     <button
                       onClick={() => setSelectedClient(client)}
-                      className="p-2 bg-slate-800/50 text-slate-400 rounded-lg hover:text-blue-500 hover:bg-blue-500/10 transition-all"
+                      className="p-2 bg-slate-800/50 text-slate-400 rounded-lg hover:text-blue-500 cursor-pointer hover:bg-blue-500/10 transition-all"
                     >
                       <PencilIcon size={16} />
                     </button>
@@ -155,7 +155,7 @@ export function ListClients() {
                       onClick={() =>
                         setClientToDelete({ id: client.id, name: client.name })
                       }
-                      className="p-2 bg-slate-800/50 text-slate-400 rounded-lg hover:text-red-500 hover:bg-red-500/10 transition-all"
+                      className="p-2 bg-slate-800/50 text-slate-400 rounded-lg hover:text-red-500 cursor-pointer hover:bg-red-500/10 transition-all"
                     >
                       <TrashIcon size={16} />
                     </button>

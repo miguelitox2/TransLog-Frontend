@@ -188,7 +188,7 @@ export function CreatePending() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-600/70 hover:bg-blue-700 transition-all duration-200 text-slate- w-full py-2 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+              className="bg-blue-600/70 hover:bg-blue-700 cursor-pointer transition-all duration-200 text-slate- w-full py-2 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               {isSubmitting ? "Processando..." : "Registrar Ocorrência"}
             </button>

@@ -115,7 +115,7 @@ export function ClientDetailsModal({
           </h2>
           <button
             onClick={onClose}
-            className="text-slate-500 hover:text-white transition-colors"
+            className="text-slate-500 hover:text-white transition-colors cursor-pointer"
           >
             <X size={24} />
           </button>
@@ -250,13 +250,13 @@ export function ClientDetailsModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 text-slate-400 font-bold text-sm hover:text-white transition-colors"
+              className="flex-1 py-3 text-slate-400 font-bold text-sm hover:text-white transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-[2] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 transition-all"
+              className="flex-[2] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 transition-all"
             >
               <Save size={18} /> Salvar Alterações
             </button>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Links } from "./Links";
 import { useAuth } from "./AuthContext";
 import {
-  ChevronRight,
+  ChevronLeft,
   LogOut,
   PlusCircle,
   Settings2,
@@ -78,8 +78,8 @@ export function Sidebar() {
               onClick={() => setIsOpen(!isOpen)}
               className="bg-white rounded shadow-md hover:shadow-lg"
             >
-              <ChevronRight
-                className={`text-blue-600 transition-transform duration-300 size-4.5 ${isOpen ? "rotate-0" : "rotate-180"}`}
+              <ChevronLeft
+                className={`text-blue-600 cursor-pointer transition-transform duration-300 size-4.5 ${isOpen ? "rotate-0" : "rotate-180"}`}
               />
             </button>
           </div>
