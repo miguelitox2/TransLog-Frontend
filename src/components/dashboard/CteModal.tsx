@@ -98,7 +98,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition-colors p-2 hover:bg-slate-800 rounded-full ml-2"
+            className="text-slate-400 cursor-pointer hover:text-white transition-colors p-2 hover:bg-slate-800 rounded-full ml-2"
           >
             <X size={24} />
           </button>
@@ -289,13 +289,13 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                 <>
                   <button
                     onClick={handleSave}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all"
+                    className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all"
                   >
                     <Save size={16} /> Salvar
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-medium transition-all"
+                    className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-medium transition-all"
                   >
                     <RotateCcw size={16} /> Cancelar
                   </button>
@@ -303,7 +303,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
               ) : (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-all"
+                  className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-all"
                 >
                   <Edit3 size={16} /> Editar
                 </button>
@@ -311,7 +311,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
               {cte?.status === "Pendente" && !isEditing && (
                 <button
                   onClick={handleFinalize}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-bold transition-colors shadow-lg shadow-green-900/20"
+                  className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-bold transition-colors shadow-lg shadow-green-900/20"
                 >
                   <CheckCircle size={18} /> Finalizar Chamado
                 </button>

@@ -214,7 +214,7 @@ export function ListCtes() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="p-1.5 rounded bg-slate-800 disabled:opacity-30 hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded cursor-pointer bg-slate-800 disabled:opacity-30 hover:bg-slate-700 transition-colors"
             >
               <ChevronLeft size={16} />
             </button>
@@ -224,7 +224,7 @@ export function ListCtes() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="p-1.5 rounded bg-slate-800 disabled:opacity-30 hover:bg-slate-700 transition-colors"
+              className="p-1.5 rounded cursor-pointer bg-slate-800 disabled:opacity-30 hover:bg-slate-700 transition-colors"
             >
               <ChevronRight size={16} />
             </button>
