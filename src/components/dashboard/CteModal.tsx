@@ -182,6 +182,7 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                         <option value="Ausente">Ausente</option>
                         <option value="Indenização">Indenização</option>
                         <option value="Extravio">Extravio</option>
+                        <option value="Etiquetagem">Etiquetagem Errada</option>
                       </select>
                       <input
                         type="text"

@@ -137,6 +137,7 @@ export function ListCtes() {
             <option value="Avaria">Avaria</option>
             <option value="Extravio">Extravio</option>
             <option value="Indenização">Indenização</option>
+            <option value="Etiquetagem">Etiquetagem Errada</option>
           </select>
         </div>
       </div>
