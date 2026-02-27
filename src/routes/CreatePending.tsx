@@ -137,6 +137,7 @@ export function CreatePending() {
                 <option value="Extravio">Extravio</option>
                 <option value="Ausente">Ausente</option>
                 <option value="Indenização">Indenização</option>
+                <option value="Etiquetagem">Etiquetagem Errada</option>
               </select>
               {errors.cause && (
                 <span className="text-xs text-red-400 ml-1">
