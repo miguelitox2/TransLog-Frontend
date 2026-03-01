@@ -12,11 +12,13 @@ import {
   Save,
   RotateCcw,
   CheckCircle,
+  Trash2,
 } from "lucide-react";
 import { CteData } from "../../types/cte";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { badgeColorsByPriority } from "../../utils/BadgeColorStats";
+import { ConfirmModal } from "../ConfirmModal";
 import toast from "react-hot-toast";
 
 interface CteModalProps {
@@ -28,6 +30,7 @@ interface CteModalProps {
 export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState<Partial<CteData>>({});
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     if (cte) {
@@ -76,6 +79,21 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
       }
     } catch (error: any) {
       toast.error("Erro ao salvar as alterações.");
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await api.delete(`/ctes/${cte.id}`);
+
+      if (response.status === 200 || response.status === 204) {
+        toast.success("Ocorrência excluída com sucesso!");
+        if (onUpdate) await onUpdate(); // Atualiza a lista ao fundo
+        onClose(); // Fecha o modal
+      }
+    } catch (error) {
+      console.error("Erro ao excluir:", error);
+      toast.error("Não foi possível excluir a ocorrência.");
     }
   };
 
@@ -302,12 +320,21 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
                   </button>
                 </>
               ) : (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-all"
-                >
-                  <Edit3 size={16} /> Editar
-                </button>
+                <>
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-all"
+                  >
+                    <Edit3 size={16} /> Editar
+                  </button>
+                  <button
+                    onClick={() => setIsConfirmModalOpen(true)}
+                    title="Excluir Ocorrência"
+                    className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-all"
+                  >
+                    <Trash2 size={20} /> Excluir
+                  </button>
+                </>
               )}
               {cte?.status === "Pendente" && !isEditing && (
                 <button
@@ -321,6 +348,16 @@ export function CteModal({ cte, onClose, onUpdate }: CteModalProps) {
           </section>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        title="Excluir Ocorrência"
+        message={`Tem certeza que deseja excluir a ocorrência ${cte.numberCte}? 
+        Esta ação não poderá ser desfeita.`}
+        confirmText="Sim, excluir"
+        variant="danger"
+        onClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }

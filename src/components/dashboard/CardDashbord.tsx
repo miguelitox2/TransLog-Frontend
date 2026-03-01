@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { badgeColorsByStatus, badgeColorsByPriority } from "../../utils/BadgeColorStats";
+import {
+  badgeColorsByStatus,
+  badgeColorsByPriority,
+} from "../../utils/BadgeColorStats";
 import { CteData } from "../../types/cte";
 import { Loader2 } from "lucide-react";
 
@@ -38,7 +41,11 @@ export function CardDashbord() {
     {
       label: "CTEs Indenizados",
       // Ajuste conforme o nome do seu campo de prioridade/causa no banco
-      value: ctes.filter((cte) => cte.cause === "Indenização" || (cte as any).priority === "Indenização").length,
+      value: ctes.filter(
+        (cte) =>
+          cte.cause === "Indenização" ||
+          (cte as any).priority === "Indenização",
+      ).length,
       color: badgeColorsByPriority["Indenização"],
     },
     {
@@ -62,10 +69,14 @@ export function CardDashbord() {
       {stats.map((item, index) => (
         <div
           key={index}
-          className="flex flex-1 bg-slate-800 border border-slate-700/40 items-center justify-between py-3 px-5 rounded-lg shadow-md min-w-[200px] gap-4 transition-all hover:border-slate-500"
+          className={`flex flex-1 bg-slate-800 border-l-4 border-l-${item.color} items-center justify-between py-3 px-5 rounded-md shadow-md min-w-[200px] gap-4 transition-all hover:border-slate-500`}
         >
-          <span className="text-sm font-medium text-slate-300">{item.label}</span>
-          <span className={`${item.color} py-1 px-4 rounded-lg text-lg font-bold shadow-sm`}>
+          <span className="text-sm font-medium text-slate-300">
+            {item.label}
+          </span>
+          <span
+            className={`${item.color} py-1 px-4 rounded-lg text-lg font-bold shadow-sm`}
+          >
             {item.value}
           </span>
         </div>
