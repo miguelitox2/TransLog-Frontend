@@ -18,6 +18,7 @@ import {
 } from "react-router-dom";
 import { Financial } from "./routes/Financial";
 import { Toast } from "./components/Toast";
+import { Stock } from "./routes/Stock";
 
 // 1. Rota Protegida Geral (Verifica apenas login)
 const ProtectedRoute = () => {
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
           { path: "register-cte", element: <CreatePending /> },
           { path: "list-ctes", element: <ListCtes /> },
           { path: "financial", element: <Financial /> },
+          { path: "stock", element: <Stock /> },
           // 3. Movemos o settings para dentro de um grupo protegido por cargo
           {
             element: <AdminRoute />,

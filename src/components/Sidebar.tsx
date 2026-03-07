@@ -11,6 +11,7 @@ import {
   FileText,
   Users,
   LayoutDashboard,
+  Box,
 } from "lucide-react";
 import { ConfirmModal } from "./ConfirmModal";
 
@@ -33,6 +34,7 @@ const menuItems = [
     icon: <Users size={18} />,
   },
   { href: "/financial", title: "Relatórios", icon: <BarChart3 size={18} /> },
+  { href: "/stock", title: "Estoque", icon: <Box size={18} /> },
 ];
 
 export function Sidebar() {
