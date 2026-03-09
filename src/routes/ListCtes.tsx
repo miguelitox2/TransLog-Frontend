@@ -87,7 +87,7 @@ export function ListCtes() {
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
 
   return (
-    <main className="w-full h-screen px-6 overflow-auto text-slate-50 pb-10">
+    <main className="w-full h-screen px-6 overflow-auto text-slate-50 pb-10 bg-slate-950">
       <CteModal
         cte={selectedCte}
         onClose={() => setSelectedCte(null)}
@@ -110,7 +110,7 @@ export function ListCtes() {
           placeholder="Pesquisar número..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border bg-slate-800 text-sm border-slate-600 rounded-lg px-3 py-1.5 focus:outline-none focus:border-slate-700 w-64 text-white placeholder-slate-500"
+          className="border bg-slate-900 text-sm border-slate-600 rounded-lg px-3 py-1.5 focus:outline-none focus:border-slate-700 w-64 text-white placeholder-slate-500"
         />
 
         <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ export function ListCtes() {
           <select
             value={selectedStatus}
             onChange={(e) => setStatus(e.target.value)}
-            className="bg-slate-800 text-sm rounded-lg px-2 py-1.5 focus:outline-none border border-slate-700 text-white"
+            className="bg-slate-900 text-sm rounded-lg px-2 py-1.5 focus:outline-none border border-slate-700 text-white"
           >
             <option value="Todos">Todos</option>
             <option value="Pendente">Pendente</option>
@@ -131,7 +131,7 @@ export function ListCtes() {
           <select
             value={selectCause}
             onChange={(e) => setSelectCause(e.target.value)}
-            className="bg-slate-800 text-sm rounded-lg px-2 py-1.5 border border-slate-700 text-white"
+            className="bg-slate-900 text-sm rounded-lg px-2 py-1.5 border border-slate-700 text-white"
           >
             <option value="Todos">Todos</option>
             <option value="Avaria">Avaria</option>

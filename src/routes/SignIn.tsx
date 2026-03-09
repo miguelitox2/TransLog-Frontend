@@ -63,7 +63,7 @@ export function SignIn() {
   };
 
   return (
-    <main className="w-full flex gap-10 items-center justify-center h-screen text-slate-50  bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
+    <main className="w-full flex gap-10 items-center justify-center h-screen text-slate-950 dark:text-slate-50 bg-gradient-to-br from-slate-100 via-slate-200 to-slate-50 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
       <div className="flex flex-col items-center gap-1">
         <img src={logo} alt="logo" className="size-24" />
         <h1 className="text-4xl text-slate-950 dark:text-slate-200 font-bold mt-2 mb-1.5">
@@ -75,7 +75,7 @@ export function SignIn() {
       </div>
 
       <form onSubmit={handleSubmit(handleLogin)}>
-        <div className="w-96 py-4 border border-slate-800 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 flex flex-col items-center justify-center rounded-xl px-5 shadow-2xl">
+        <div className="w-96 py-4 border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-100 via-slate-200 to-slate-50 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 flex flex-col items-center justify-center rounded-xl px-5 shadow-2xl">
           <div className="w-full flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <Inputs
@@ -105,7 +105,7 @@ export function SignIn() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-slate-200 hover:bg-slate-300 w-full rounded-md py-2 my-4 cursor-pointer text-slate-800 font-bold transition-all disabled:opacity-50"
+            className="dark:bg-slate-200 bg-slate-900 hover:bg-slate-700 dark:hover:bg-slate-300 w-full rounded-md py-2 my-4 cursor-pointer dark:text-slate-800 text-slate-50 font-bold transition-all disabled:opacity-50"
           >
             {isSubmitting ? "Autenticando..." : "Entrar"}
           </button>

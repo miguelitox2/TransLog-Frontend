@@ -3,7 +3,7 @@ import { Header } from "../components/Header";
 import { LastCTEs } from "../components/dashboard/LastCTEs";
 export function Dashboard() {
   return (
-    <div className="w-full h-screen px-6 overflow-auto">
+    <div className="w-full h-screen px-6 overflow-auto bg-slate-950">
       <div>
         <Header title="Dashboard" subtitle="Gerenciador de CTE" />
       </div>
@@ -13,7 +13,7 @@ export function Dashboard() {
           <section className="pt-4">
             <div className="flex flex-col md:flex-row gap-4 w-full overflow-auto">
               <LastCTEs />
-              <div className="border border-slate-700/40 bg-slate-800 p-6 rounded-lg shadow-lg flex-1">
+              <div className="border border-slate-700/40 bg-slate-900 p-6 rounded-lg shadow-lg flex-1">
                 <span className="text-lg text-slate-50 font-semibold">
                   Ações Rápidas
                 </span>

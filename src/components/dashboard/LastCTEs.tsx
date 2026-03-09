@@ -24,7 +24,7 @@ export function LastCTEs() {
   const lastCTEs = recentCTEs.slice(0, 3);
 
   return (
-    <div className="bg-slate-800 text-slate-50 p-6 rounded-lg shadow-lg flex-1">
+    <div className="bg-slate-900 text-slate-50 p-6 rounded-lg shadow-lg flex-1">
       <h2 className="text-lg font-semibold">Últimas Ocorrências</h2>
       <ul>
         {lastCTEs.map(
@@ -36,7 +36,7 @@ export function LastCTEs() {
               className="flex flex-col gap-4 mt-4"
             >
               {/* Use o id do banco como key em vez do index para melhor performance */}
-              <div className="flex bg-slate-900 border border-slate-900/40 hover:border-slate-500 items-center justify-between rounded-lg ease-in-out duration-300">
+              <div className="flex bg-slate-950 border border-slate-900/40 hover:border-slate-500 items-center justify-between rounded-lg ease-in-out duration-300">
                 <div className="flex flex-col py-3 px-4 gap-2">
                   <span className="text-md font-bold">{cte.numberCte}</span>
                   <span className="text-sm text-slate-400">

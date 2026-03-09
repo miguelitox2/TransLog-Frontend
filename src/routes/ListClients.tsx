@@ -64,7 +64,7 @@ export function ListClients() {
   }
 
   return (
-    <main className="w-full h-screen px-6 overflow-auto text-slate-50">
+    <main className="w-full h-screen px-6 overflow-auto text-slate-50 bg-slate-950">
       <Header
         title="Lista de Clientes"
         subtitle="Gerenciador de Clientes Rodonaves"
@@ -81,7 +81,7 @@ export function ListClients() {
             placeholder="Pesquisar cliente..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:border-blue-500 outline-none transition-all text-sm"
+            className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl focus:border-blue-500 outline-none transition-all text-sm"
           />
         </div>
 

@@ -69,7 +69,7 @@ export function CardDashbord() {
       {stats.map((item, index) => (
         <div
           key={index}
-          className={`flex flex-1 bg-slate-800 border-l-4 border-l-${item.color} items-center justify-between py-3 px-5 rounded-md shadow-md min-w-[200px] gap-4 transition-all hover:border-slate-500`}
+          className={`flex flex-1 bg-slate-900 border-l-4 border-l-${item.color} items-center justify-between py-3 px-5 rounded-md shadow-md min-w-[200px] gap-4 transition-all hover:border-slate-500`}
         >
           <span className="text-sm font-medium text-slate-300">
             {item.label}

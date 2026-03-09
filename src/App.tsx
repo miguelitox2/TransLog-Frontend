@@ -12,7 +12,7 @@ export function App() {
           <Sidebar />
         </aside>
 
-        <main className="w-full h-screen bg-slate-900">
+        <main className="w-full h-screen bg-slate-950">
           <Outlet />
         </main>
       </div>

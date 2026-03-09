@@ -36,7 +36,7 @@ api.interceptors.response.use(
       localStorage.removeItem("user_data");
 
       // Redireciona para a raiz (Login) limpando o estado do navegador
-      window.location.href = "/";
+      window.location.href = "/signin";
     }
 
     // Retorna o erro para que o componente (ex: Modal, Lista) saiba que falhou

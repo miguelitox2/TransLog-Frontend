@@ -5,6 +5,7 @@ import { Inputs } from "../components/Inputs";
 import { api } from "../services/api";
 import { cteSchema, CteFormData } from "../utils/schema";
 import toast from "react-hot-toast";
+import "../style.css";
 
 export function CreatePending() {
   const {
@@ -45,13 +46,13 @@ export function CreatePending() {
   };
 
   return (
-    <main className="w-full px-6 text-slate-50 overflow-hidden">
+    <main className="w-full px-6 text-slate-50 overflow-hidden bg-slate-950">
       <Header
         title="Registrar Ocorrência"
         subtitle="Cadastro de nova ocorrência CTE"
       />
 
-      <section className="w-full bg-slate-800 p-6 border border-slate-700 rounded-xl shadow-lg scroll-auto">
+      <section className="w-full bg-slate-900 p-6 border border-slate-700 rounded-xl shadow-lg scroll-auto">
         <header>
           <h1 className="text-lg font-semibold">Dados da Ocorrência</h1>
           <hr className="border-slate-700 mt-4" />
@@ -59,7 +60,7 @@ export function CreatePending() {
 
         {/* Tag Semântica Form com onSubmit do Hook Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-3">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-3 py-3 items-start">
             <div className="flex flex-col gap-1">
               <Inputs
                 label="Número CTE *"

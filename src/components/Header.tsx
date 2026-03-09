@@ -9,7 +9,7 @@ export const Header = (HeaderProps: HeaderProps) => {
       <div className="flex justify-between items-center py-6">
         <div>
           <h1 className="text-xl font-bold">{HeaderProps.title}</h1>
-          <span className="text-sm">{HeaderProps.subtitle}</span>
+          <span className="text-sm text-slate-300">{HeaderProps.subtitle}</span>
         </div>
       </div>
 

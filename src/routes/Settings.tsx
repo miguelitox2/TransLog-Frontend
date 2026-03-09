@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUsers, getBranches, registerUser } from "../services/api";
-import { UserPlus, Settings as SettingsIcon, X, Save } from "lucide-react";
+import { UserPlus, X, Save } from "lucide-react";
 import toast from "react-hot-toast";
 
 // --- COMPONENTE DO MODAL (ESTILIZADO SEGUNDO O PRINT) ---
@@ -224,9 +224,6 @@ export function Settings() {
     <div className="px-6 py-6 min-h-screen text-slate-100">
       <div className="flex justify-between items-center mb-7">
         <div className="flex items-center gap-4">
-          <div className="p-2 bg-blue-600/20 rounded-xl text-blue-500 border border-blue-500/20 shadow-lg shadow-blue-500/10">
-            <SettingsIcon size={18} />
-          </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight text-white">
               Configurações
