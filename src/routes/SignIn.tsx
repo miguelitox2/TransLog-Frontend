@@ -63,20 +63,25 @@ export function SignIn() {
   };
 
   return (
-    <main className="w-full flex gap-10 items-center justify-center h-screen text-slate-950 dark:text-slate-50 bg-gradient-to-br from-slate-100 via-slate-200 to-slate-50 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
-      <div className="flex flex-col items-center gap-1">
-        <img src={logo} alt="logo" className="size-24" />
-        <h1 className="text-4xl text-slate-950 dark:text-slate-200 font-bold mt-2 mb-1.5">
+    // Alterado para flex-col no mobile e flex-row no desktop (sm:flex-row)
+    <main className="w-full flex flex-col sm:flex-row gap-10 items-center justify-center min-h-screen p-6 text-slate-950 dark:text-slate-50 bg-gradient-to-br from-slate-100 via-slate-200 to-slate-50 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
+      <div className="flex flex-col items-center gap-1 text-center">
+        <img src={logo} alt="logo" className="size-20 sm:size-24" />
+        <h1 className="text-3xl sm:text-4xl text-slate-950 dark:text-slate-200 font-bold mt-2 mb-1.5">
           Translog
         </h1>
-        <span className="text-slate-700 dark:text-slate-400 font-light text-lg">
+        <span className="text-slate-700 dark:text-slate-400 font-light text-base sm:text-lg">
           Sistema de Gestão CTE
         </span>
       </div>
 
-      <form onSubmit={handleSubmit(handleLogin)}>
-        <div className="w-96 py-4 border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-100 via-slate-200 to-slate-50 dark:bg-gradient-to-br dark:from-slate-800 dark:via-slate-900 dark:to-slate-950 flex flex-col items-center justify-center rounded-xl px-5 shadow-2xl">
-          <div className="w-full flex flex-col gap-3">
+      <form
+        onSubmit={handleSubmit(handleLogin)}
+        className="w-full max-w-[400px]"
+      >
+        {/* Removido w-96 fixo e adicionado w-full com max-w para responsividade */}
+        <div className="w-full py-8 border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm flex flex-col items-center justify-center rounded-2xl px-6 shadow-2xl">
+          <div className="w-full flex flex-col gap-4">
             <div className="flex flex-col gap-1">
               <Inputs
                 label="E-mail"
@@ -84,6 +89,11 @@ export function SignIn() {
                 id="email"
                 {...register("email")}
               />
+              {errors.email && (
+                <span className="text-xs text-red-400 pl-1">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-1">
@@ -95,7 +105,7 @@ export function SignIn() {
                 {...register("password")}
               />
               {errors.password && (
-                <span className="text-xs text-red-400">
+                <span className="text-xs text-red-400 pl-1">
                   {errors.password.message}
                 </span>
               )}
@@ -105,23 +115,13 @@ export function SignIn() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="dark:bg-slate-200 bg-slate-900 hover:bg-slate-700 dark:hover:bg-slate-300 w-full rounded-md py-2 my-4 cursor-pointer dark:text-slate-800 text-slate-50 font-bold transition-all disabled:opacity-50"
+            className="dark:bg-slate-200 bg-slate-900 hover:bg-slate-700 dark:hover:bg-slate-300 w-full rounded-lg py-3 mt-6 mb-4 cursor-pointer dark:text-slate-800 text-slate-50 font-bold transition-all disabled:opacity-50 active:scale-[0.98]"
           >
             {isSubmitting ? "Autenticando..." : "Entrar"}
           </button>
 
-          <footer className="flex flex-col items-center gap-1">
-            <button
-              onClick={toggleTheme}
-              className="fixed top-6 right-6 p-2.5 rounded-full bg-slate-950 dark:bg-slate-800 text-zinc-50 dark:text-zinc-100 border border-gray-200 dark:border-zinc-800 shadow-sm cursor-pointer transition-all active:scale-90 hover:bg-slate-500 dark:hover:bg-slate-600"
-            >
-              {isDark ? (
-                <Sun size={20} className="text-amber-400" />
-              ) : (
-                <Moon size={20} />
-              )}
-            </button>
-            <span className="text-[10px] text-slate-500">
+          <footer className="flex flex-col items-center gap-1 mt-2">
+            <span className="text-[10px] text-slate-500 uppercase tracking-wider">
               © 2025 TransLog - Gestão Profissional
             </span>
             <span className="text-[10px] text-slate-500">
@@ -130,6 +130,18 @@ export function SignIn() {
           </footer>
         </div>
       </form>
+
+      {/* Botão de tema ajustado para não sobrepor elementos no mobile */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-6 right-6 sm:top-6 sm:bottom-auto p-3 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 shadow-lg cursor-pointer transition-all active:scale-90 hover:opacity-80 z-50"
+      >
+        {isDark ? (
+          <Sun size={20} className="text-amber-500" />
+        ) : (
+          <Moon size={20} />
+        )}
+      </button>
     </main>
   );
 }
