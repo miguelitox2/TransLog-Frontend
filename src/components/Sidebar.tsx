@@ -12,10 +12,11 @@ import {
   Users,
   LayoutDashboard,
   Box,
+  Menu,
+  X,
 } from "lucide-react";
 import { ConfirmModal } from "./ConfirmModal";
 
-// Itens base que todos podem ver
 const menuItems = [
   {
     href: "/dashboard",
@@ -39,132 +40,156 @@ const menuItems = [
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { user, signOut } = useAuth();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const userAvatar = `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name}`;
 
-  const handleLogout = () => {
-    setIsLogoutModalOpen(true);
-  };
-
   return (
-    <div className="flex text-white bg-gradient-to-br from-slate-950 via-slate-800 to-slate-950">
-      <div
-        className={`h-screen flex flex-col px-4 pt-4 transition-all duration-300 ${isOpen ? "w-54" : "w-22"}`}
-      >
-        {/* Logo / Botão */}
-        <div className="flex py-1.5 gap-4 items-center ml-2">
-          <img src={logosidebar} alt="logo" className="size-10" />
-          <div className="flex flex-col">
-            <span
-              className={`font-bold text-xl transition-all duration-300 ${isOpen ? "opacity-100 scale-100" : "opacity-0 overflow-hidden scale-0"}`}
-            >
-              TransLog
-            </span>
-            <span
-              className={`font-extralight text-sm transition-all duration-300 ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-0 overflow-hidden"}`}
-            >
-              Gestão CTE
-            </span>
-          </div>
-        </div>
+    <>
+      {/* BOTÃO MOBILE - Fica fixo apenas em telas pequenas */}
+      <div className="lg:hidden fixed top-4 right-4 z-[60]">
+        <button
+          onClick={() => setIsMobileOpen(true)}
+          className="p-2 bg-slate-900 text-white rounded-lg shadow-xl border border-slate-700"
+        >
+          <Menu size={24} />
+        </button>
+      </div>
 
-        {/* Botão de Toggle */}
-        <div className="w-full flex items-center relative py-4 ">
-          <div className="border w-full border-slate-700/50 absolute"></div>
-          <div
-            className={`flex items-center transition-all duration-300 ${isOpen ? "translate-x-48" : "translate-x-16"}`}
-          >
+      {/* OVERLAY MOBILE */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] lg:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* SIDEBAR ESTRUTURA */}
+      <aside
+        className={`
+          /* Comportamento Mobile */
+          fixed inset-y-0 left-0 z-[80] transition-all duration-300
+          ${isMobileOpen ? "translate-x-0 w-64" : "-translate-x-full"}
+          
+          /* Comportamento Desktop - Volta a ser relativa e respeitar o seu isOpen */
+          lg:relative lg:translate-x-0 lg:z-10
+          ${isOpen ? "lg:w-64" : "lg:w-22"}
+          
+          bg-gradient-to-br from-slate-950 via-slate-800 to-slate-950 flex flex-col text-white
+        `}
+      >
+        <div className="h-screen flex flex-col px-4 pt-4 sticky top-0">
+          {/* Logo e Fechar Mobile */}
+          <div className="flex py-1.5 gap-4 items-center ml-2 justify-between">
+            <div className="flex items-center gap-4">
+              <img src={logosidebar} alt="logo" className="size-10" />
+              {(isOpen || isMobileOpen) && (
+                <div className="flex flex-col whitespace-nowrap">
+                  <span className="font-bold text-xl">TransLog</span>
+                  <span className="font-extralight text-sm">Gestão CTE</span>
+                </div>
+              )}
+            </div>
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="bg-white rounded shadow-md hover:shadow-lg"
+              onClick={() => setIsMobileOpen(false)}
+              className="lg:hidden p-2 text-slate-400"
             >
-              <ChevronLeft
-                className={`text-blue-600 cursor-pointer transition-transform duration-300 size-4.5 ${isOpen ? "rotate-0" : "rotate-180"}`}
-              />
+              <X size={20} />
             </button>
           </div>
-        </div>
 
-        {/* Menu */}
-        <span
-          className={`text-zinc-100 w-full transition-all duration-300 text-sm ${isOpen ? "opacity-100" : "overflow-hidden ml-2"}`}
-        >
-          Menu
-        </span>
+          {/* Botão de Toggle - Visível apenas no Desktop */}
+          <div className="hidden lg:flex w-full items-center relative py-4">
+            <div className="border w-full border-slate-700/50 absolute"></div>
+            <div
+              className={`flex items-center transition-all duration-300 ${isOpen ? "translate-x-48" : "translate-x-12"}`}
+            >
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="bg-white rounded shadow-md hover:scale-110 transition-transform p-0.5"
+              >
+                <ChevronLeft
+                  className={`text-blue-600 size-4 transition-transform duration-300 ${isOpen ? "rotate-0" : "rotate-180"}`}
+                />
+              </button>
+            </div>
+          </div>
 
-        <div className="flex flex-col justify-between flex-1">
-          <nav className="flex flex-col items-start gap-2 w-full mt-4">
-            {/* Mapeia os itens comuns */}
+          <span
+            className={`text-zinc-100 text-sm mt-4 ${isOpen || isMobileOpen ? "opacity-100" : "opacity-0 overflow-hidden"}`}
+          >
+            Menu
+          </span>
+
+          <nav className="flex flex-col items-start gap-2 w-full mt-4 flex-1">
             {menuItems.map((item) => (
               <Links
                 key={item.href}
                 href={item.href}
                 title={item.title}
                 icon={item.icon}
-                isOpen={isOpen}
+                isOpen={isOpen || isMobileOpen}
               />
             ))}
 
-            {/* ITEM CONDICIONAL: Só aparece para o DEV */}
             {user?.role === "DEV" && (
               <Links
                 href="/settings"
                 title="Configurações"
                 icon={<Settings2 size={18} />}
-                isOpen={isOpen}
+                isOpen={isOpen || isMobileOpen}
               />
             )}
           </nav>
 
-          <div className="flex flex-col items-center w-full">
+          {/* Footer Usuário */}
+          <div className="flex flex-col items-center w-full pb-6">
             <button
-              onClick={handleLogout}
-              className="flex items-center justify-center gap-2 bg-slate-900 rounded-lg px-4 py-2 text-sm w-full cursor-pointer hover:bg-slate-700/60 hover:text-rose-600 transition-all duration-200"
+              onClick={() => setIsLogoutModalOpen(true)}
+              className="flex items-center justify-center gap-2 bg-slate-900 rounded-lg px-4 py-2 text-sm w-full cursor-pointer hover:bg-slate-700/60 hover:text-rose-600 transition-all"
             >
               <LogOut className="size-5" />
-              <span
-                className={`whitespace-nowrap transition-all duration-300 font-light ${!isOpen && "hidden"}`}
-              >
-                Sair
-              </span>
+              {(isOpen || isMobileOpen) && (
+                <span className="whitespace-nowrap font-light">Sair</span>
+              )}
             </button>
 
-            <div className="border w-full border-blue-300/50 my-4"></div>
+            <div className="border w-full border-blue-300/20 my-4"></div>
 
-            {/* Avatar e Infos do Usuário */}
-            <div className="w-full mb-4">
-              <div className="flex items-center justify-center py-3 px-2 bg-slate-900 rounded-lg">
-                <img
-                  src={userAvatar}
-                  alt="avatar"
-                  className="size-8 rounded-full object-cover border border-slate-700"
-                />
-                <div
-                  className={`flex flex-col transition-all duration-300 ${isOpen ? "opacity-100 ml-2" : "opacity-0 w-0 overflow-hidden"}`}
-                >
-                  <span className="text-xs font-bold text-start whitespace-nowrap">
-                    {user?.name || "Usuário"}
+            <div
+              className={`flex items-center justify-center py-3 px-2 bg-slate-900 rounded-lg w-full`}
+            >
+              <img
+                src={userAvatar}
+                alt="avatar"
+                className="size-8 rounded-full border border-slate-700"
+              />
+              {(isOpen || isMobileOpen) && (
+                <div className="flex flex-col ml-2 overflow-hidden">
+                  <span className="text-xs font-bold truncate">
+                    {user?.name}
                   </span>
-                  <span className="text-[10px] rounded-sm text-slate-400 text-start whitespace-nowrap uppercase tracking-wider">
-                    {user?.role || "Operador"}
+                  <span className="text-[10px] text-slate-400 uppercase tracking-widest">
+                    {user?.role}
                   </span>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </aside>
+
       <ConfirmModal
         isOpen={isLogoutModalOpen}
         title="Encerrar Sessão"
-        message={`Olá ${user?.name}, deseja realmente sair do sistema TransLog?`}
+        message={`Olá ${user?.name}, deseja sair do TransLog?`}
         confirmText="Sair Agora"
-        variant="danger" // Mantemos o padrão de atenção para logout
-        onConfirm={signOut} // Função vinda do seu AuthContext
+        variant="danger"
+        onConfirm={signOut}
         onClose={() => setIsLogoutModalOpen(false)}
       />
-    </div>
+    </>
   );
 }

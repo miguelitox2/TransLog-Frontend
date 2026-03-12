@@ -22,7 +22,7 @@ export function ConfirmModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
       <div className="bg-[#0b0f1a] border border-slate-800 rounded-2xl w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
